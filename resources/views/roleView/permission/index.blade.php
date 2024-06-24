@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('roleView.admin')
 
 @section('content')
         <div class="container mt-5">
@@ -9,7 +9,7 @@
                         @endif
                     <div class="card mt-3">
                         <div class="card-header">
-                            <h4> Permissions
+                            <h4> Types of Permissions
                             <a href="{{ url('permissions/create')}}" class="btn btn-primary float-end"> Add Permission</a>
                             </h4>
                         </div>

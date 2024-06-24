@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('roleView.admin')
 
 @section('content')
         <div class="container mt-5">
@@ -30,9 +30,13 @@
                                         <td> {{ $role->name }}</td>
                                         {{-- //resources route follow this structure --}}
                                         <td> 
+                                            {{-- @role(super-admin) --}}
                                             <a href="{{ url('roles/'.$role->id.'/give-permissions')}}" class="btn btn-success"> Add / Edit permission</a>
+                            
                                             <a href="{{ url('roles/'.$role->id.'/edit')}}" class="btn btn-success"> Edit</a>
+                                        
                                             <a href="{{ url('roles/'.$role->id.'/delete')}}" class="btn btn-danger"> Delete</a>
+                                            {{-- @endrole --}}
                                         </td>
                                     </tr>
                                     @endforeach

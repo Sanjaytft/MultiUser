@@ -20,10 +20,19 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        $roles = Role::pluck('name', 'name')->all();
-        return view('auth.register', [
-            'roles' => $roles
-         ]);
+
+        // $roles = Role::pluck('name', 'name')->all();
+        // return view('auth.register'
+        // , [
+        //     'roles' => $roles
+        //  ]);
+
+        //  if (! Gate::allows('users_manage')) {
+        //     return abort(401);
+        // }
+        $roles = Role::get()->pluck('name', 'name');
+
+        return view('auth.register', compact('roles'));
     }
 
     /**
@@ -46,7 +55,13 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        $user->syncRoles($request->roles);
+        // $user->syncRoles($request->roles);
+
+        // $user = User::create($request->all());
+        $roles = $request->input('roles') ? $request->input('roles') : [];
+        $user->assignRole($roles);
+
+        return redirect()->route('dashboard');
 
         event(new Registered($user));
 

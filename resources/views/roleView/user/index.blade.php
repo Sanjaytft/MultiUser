@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('roleView.admin')
 
 @section('content')
         <div class="container mt-5">
@@ -9,9 +9,7 @@
                         @endif
                     <div class="card mt-3">
                         <div class="card-header">
-                            <h4> List of Users
-                            <a href="{{ url('roles/create')}}" class="btn btn-primary float-end"> Add New Roles</a>
-                            </h4>
+                            <h4> List of Users with their Roles</h4>
                         </div>
                             <div class="card-body">
                             <table class="table table-bordered table-stripped">
@@ -31,17 +29,15 @@
                                         <td> {{ $user->id }}</td>
                                         <td> {{ $user->name }}</td>
                                         <td> {{ $user->email }}</td>
-                                        <td>
-                                            {{-- get the names of the users roles --}}
-                                            @if(! empty($user->getRoleNames()))
-                                                @foreach ($user->getRoleNames() as $rolename)
-                                                <label class="badge bgs-primary mx-1"> {{ $rolename }}</label>
-
+                                        <td> 
+                                            @if(!empty ($user->getRoleNames()))
+                                            @foreach($user->getRoleNames() as $rolename)
+                                            <label class="'badge badge-primary mx-1"> {{ $rolename}} </label>
+                                            @endforeach
                                             @endif
-                                        </td>
+                                        </td>    
                                         
                                         <td>
-                                            <a href="{{ url('users/'.$user->id.'/edit')}}" class="btn btn-success"> Edit</a>
                                             <a href="{{ url('users/'.$user->id.'/delete')}}" class="btn btn-danger"> Delete</a>
                                         </td>
                                     </tr>
