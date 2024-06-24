@@ -20,7 +20,7 @@
             <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none">
               <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
             </a>
-            @guest
+            
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 <li><a href="#" class="nav-link px-2 link-body-emphasis">User Post</a></li>
               <li><a href="{{ url('users')}}" class="nav-link px-2 link-secondary">Users Details</a></li>
@@ -28,7 +28,7 @@
               <li><a href="{{url ('permissions')}}" class="nav-link px-2 link-body-emphasis">Users Permission</a></li>
               
             </ul>
-            @endguest
+            
     
             
     
@@ -48,6 +48,10 @@
           </div>
         </div>
       </header>
+
+      <main>
+
+      </main>
       
     @yield('content')
 </body>

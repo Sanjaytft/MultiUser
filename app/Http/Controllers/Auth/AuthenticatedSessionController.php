@@ -8,9 +8,23 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
+use Closure;
 
-class AuthenticatedSessionController extends Controller
+
+class AuthenticatedSessionController extends Controller implements HasMiddleware
 {
+    
+    // Get the middleware that should be assigned to the controller.
+    public static function middleware(): array
+    {
+        return [
+            function (Request $request, Closure $next) {
+                return $next($request);
+            },
+        ];
+    }
     /**
      * Display the login view.
      */
