@@ -44,7 +44,9 @@
             <select name="roles[]" class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline" multiple>
                 <option value=""> Select Roles</option>
                 @foreach($roles as $role)
-                <option value="{{ $role}}"> {{ $role }}</option>
+                <option value="{{ $role}}"
+                {{ in_array($role, $userRoles) ? 'selected' : ''}}> {{ $role }}</option>
+            </option>
                 @endforeach
             </select>
         </div>

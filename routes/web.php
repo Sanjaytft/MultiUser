@@ -7,7 +7,7 @@ Route::get('/', function () {
     return view('roleView.permission.create');
 });
 
-Route::group(['middleware' => ['role:admin|employee']], function () {
+// Route::group(['middleware' => ['role:admin|employee']], function () {
         // While using resource request no array will come 
     Route::resource('permissions', App\Http\Controllers\PermissionController::class); 
     Route::get('permissions/{permissionId}/delete', [App\Http\Controllers\PermissionController::class, 'destroy']);
@@ -22,7 +22,7 @@ Route::group(['middleware' => ['role:admin|employee']], function () {
     Route::get('roles/{roleId}/give-permissions', [App\Http\Controllers\RoleController::class, 'addPermissionToRole']);
     Route::put('roles/{roleId}/give-permissions', [App\Http\Controllers\RoleController::class, 'givePermissionToRole']);
 
-});
+// });
 
 Route::get('/dashboard', function () {
     return view('dashboard');
