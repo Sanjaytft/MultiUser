@@ -7,7 +7,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['middleware' => ['auth']], function () {
+// Route::group(['middleware' => ['role:super-admin']], function () {
 
 
     Route::resource('permissions', App\Http\Controllers\PermissionController::class); 
@@ -21,13 +21,16 @@ Route::group(['middleware' => ['auth']], function () {
     
     Route::resource('users', App\Http\Controllers\UserController::class); 
     Route::get('users/{userId}/delete', [App\Http\Controllers\PermissionController::class, 'destroy']);  
-   
-});
+
+ 
+// });
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->middleware(['auth', 'verified'])->name('dashboard');
+
+    
 
 
 

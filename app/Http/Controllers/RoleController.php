@@ -6,12 +6,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\Gate;
 
 class RoleController extends Controller
 {
     // public function __construct()
     // {
-    //     $this->middleware('permission:delete role');
+    //     $this->middleware('permission:view role',['only' => ['index']]);
+    //     $this->middleware('permission:create role',['only' => ['create', 'store', 'addPermissionToRole','givePermissionToRole' ]]);
+    //     $this->middleware('permission:update role',['only' => ['update', 'edit']]);
+    //     $this->middleware('permission:delete role',['only' => ['destroy']]);
     // }
     /**
      * Display a listing of the resource.
