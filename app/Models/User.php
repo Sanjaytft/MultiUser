@@ -50,4 +50,6 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class, 'role_user');
     }
+
+    // protected function getDefaultGuardName(): string { return 'users'; }
 }

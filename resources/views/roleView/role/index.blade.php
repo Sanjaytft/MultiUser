@@ -19,6 +19,7 @@
                                     <tr>
                                     <th> ID </th>
                                     <th> Name </th>
+                                    {{-- <th> Permission <th> --}}
                                     <th > Action </th>
                                     </tr>
                                 </thead>
@@ -29,7 +30,12 @@
                                         <td> {{ $role->id }}</td>
                                         <td> {{ $role->name }}</td>
                                         {{-- //resources route follow this structure --}}
-                                        <td> 
+                                        {{-- <td>  @if(!empty ($role->getPermissionNames()))
+                                            @foreach($user->getPermissionNames() as $permissionname)
+                                            <label class="'badge badge-primary mx-1"> {{ $permissionname}} </label>
+                                            @endforeach
+                                            @endif </td>
+                                        <td>  --}}
                                             {{-- @role(super-admin) --}}
                                             <a href="{{ url('roles/'.$role->id.'/give-permissions')}}" class="btn btn-success"> Add / Edit permission</a>
                             

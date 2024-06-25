@@ -40,6 +40,16 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
+        // 'super-admin' => [
+        //     'driver' => 'session',
+        //     'provider' => 'super-admin',
+        // ],
+
+
     ],
 
     /*
@@ -65,12 +75,12 @@ return [
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'admins' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\Admin::class,
     ],
-
+        
+    ],
     /*
     |--------------------------------------------------------------------------
     | Resetting Passwords

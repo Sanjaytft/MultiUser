@@ -10,22 +10,26 @@ use Illuminate\Support\Facades\Gate;
 
 class RoleController extends Controller
 {
-    // public function __construct()
+    // function __construct()
     // {
-    //     $this->middleware('permission:view role',['only' => ['index']]);
-    //     $this->middleware('permission:create role',['only' => ['create', 'store', 'addPermissionToRole','givePermissionToRole' ]]);
-    //     $this->middleware('permission:update role',['only' => ['update', 'edit']]);
-    //     $this->middleware('permission:delete role',['only' => ['destroy']]);
+    //      $this->middleware('permission:role-list|role-create|role-edit|role-delete', ['only' => ['index','store']]);
+    //      $this->middleware('permission:role-create', ['only' => ['create','store']]);
+    //      $this->middleware('permission:role-edit', ['only' => ['edit','update']]);
+    //      $this->middleware('permission:role-delete', ['only' => ['destroy']]);
     // }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+        
+        
+
         $roles = Role::get();
         return view ('roleView.role.index', [
             'roles' => $roles
         ]);
+        
     }
 
     /**
@@ -44,6 +48,7 @@ class RoleController extends Controller
         $request->validate([
             'name' => ['required', 'string','unique:roles,name']
         ]);
+        
         Role::create ([
             'name' => $request->name
         ]);
@@ -56,7 +61,12 @@ class RoleController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $role = Role::find($id);
+        $rolePermissions = Permission::join("role_has_permissions","role_has_permissions.permission_id","=","permissions.id")
+            ->where("role_has_permissions.role_id",$id)
+            ->get();
+    
+        return view('roles.show',compact('role','rolePermissions'));
     }
 
     /**
@@ -92,9 +102,13 @@ class RoleController extends Controller
      */
     public function destroy($roleId)
     {
-        $role = Role::find($roleId);
-        $role->delete();
-        return redirect('roles')->with('status', 'Role Deleted Sucessfully');
+        DB::table("roles")->where('id',$id)->delete();
+        return redirect()->route('roleView.role.index')
+                        ->with('success','Role deleted successfully');
+
+        // $role = Role::find($roleId);
+        // $role->delete();
+        // return redirect('roles')->with('status', 'Role Deleted Sucessfully');
     }
 
     public function addPermissionToRole($roleId)

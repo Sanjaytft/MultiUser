@@ -59,14 +59,13 @@ class RegisteredUserController extends Controller
 
         // $user = User::create($request->all());
         $roles = $request->input('roles') ? $request->input('roles') : [];
-        $user->assignRole($roles);
+        $user->assignRole($request->input('roles'));
 
         return redirect()->route('dashboard');
 
         event(new Registered($user));
 
         Auth::login($user);
-
         return redirect(route('dashboard', absolute: false));
     }
 

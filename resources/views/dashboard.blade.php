@@ -11,6 +11,7 @@
                 <div class="p-6 text-gray-900">
                     {{ __("You're logged in!") }}
                 </div>
+
                 <div class="nav">
                     <ul class="flex">
                         <li class="mr-6">

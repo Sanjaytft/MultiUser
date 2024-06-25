@@ -15,10 +15,11 @@ class PermissionController extends Controller
     //     $this->middleware('permission:delete permission',['only' => ['destroy']]);
     // }
     /**
-     * Display a listing of the resource.
+     * Display a listing of the resource. 
      */
     public function index()
     {
+        
         $permissions = Permission::get();
         return view ('roleView.permission.index', [
             'permissions' => $permissions
@@ -30,6 +31,7 @@ class PermissionController extends Controller
      */
     public function create()
     {
+      
         return view ('roleView.permission.create');
     }
 
@@ -44,6 +46,8 @@ class PermissionController extends Controller
         Permission::create ([
             'name' => $request->name
         ]);
+        
+         
 
         return redirect('permissions')->with('status', 'Permission created Sucessfully');
     }

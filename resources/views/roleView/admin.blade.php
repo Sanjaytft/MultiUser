@@ -42,6 +42,7 @@
 
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style='background-color: blue'>
                     @csrf
+                    
                 </form>
               </ul>
             </div>

@@ -16,20 +16,35 @@ use Closure;
 class AuthenticatedSessionController extends Controller implements HasMiddleware
 {
     
-    // Get the middleware that should be assigned to the controller.
     public static function middleware(): array
-    {
-        return [
-            function (Request $request, Closure $next) {
-                return $next($request);
-            },
-        ];
-    }
+{
+    return [
+        // examples with aliases, pipe-separated names, guards, etc:
+        'role_or_permission:manager|edit articles',
+        new Middleware('role:users', only: ['index']),
+        new Middleware(\Spatie\Permission\Middleware\RoleMiddleware::using('super-admin'), except:['show']),
+        new Middleware(\Spatie\Permission\Middleware\PermissionMiddleware::using('delete records,api'), only:['destroy']),
+    ];
+}
+
+    // Get the middleware that should be assigned to the controller.
+    // public static function middleware(): array
+    // {
+    //     return [
+    //         function (Request $request, Closure $next) {
+    //             return $next($request);
+    //         },
+    //     ];
+    // }
     /**
      * Display the login view.
      */
     public function create(): View
     {
+        
+   
+        // Auth::guard('super-admin')->user();
+        
         return view('auth.login');
     }
 
@@ -38,6 +53,9 @@ class AuthenticatedSessionController extends Controller implements HasMiddleware
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+
+        $user->assignRole($request->input('roles'));
+
         $request->authenticate();
 
         $request->session()->regenerate();

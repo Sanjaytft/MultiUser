@@ -7,14 +7,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::group(['middleware' => ['role:super-admin']], function () {
-
+// Route::group(['middleware' => [('manager')]], function () {
+//Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
+// Route::group(['middleware' => [\Spatie\Permission\Middleware\RoleOrPermissionMiddleware::using(['role:manager|writer'])]], function (){
 
     Route::resource('permissions', App\Http\Controllers\PermissionController::class); 
     Route::get('permissions/{permissionId}/delete', [App\Http\Controllers\PermissionController::class, 'destroy']);
     
     // While using resource request no array will come 
-    Route::resource('roles', App\Http\Controllers\RoleController::class);
+    Route::resource('roles', App\Http\Controllers\RoleController::class)->middleware('auth');
     Route::get('roles/{roleId}/delete', [App\Http\Controllers\RoleController::class, 'destroy'])->middleware('permission : delete-role');
     Route::get('roles/{roleId}/give-permissions', [App\Http\Controllers\RoleController::class, 'addPermissionToRole']);
     Route::put('roles/{roleId}/give-permissions', [App\Http\Controllers\RoleController::class, 'givePermissionToRole']);
@@ -24,9 +25,14 @@ Route::get('/', function () {
 
  
 // });
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->middleware(['auth', 'verified'])->name('dashboard');
+}
+
 
 
 
