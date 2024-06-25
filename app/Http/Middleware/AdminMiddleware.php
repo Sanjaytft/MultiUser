@@ -32,5 +32,5 @@ class AdminMiddleware
         abort(401);
         }
 
-        }
+    }
 
